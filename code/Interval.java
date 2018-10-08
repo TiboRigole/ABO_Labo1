@@ -34,6 +34,7 @@ public class Interval implements Comparable<Interval> {
      */
     public int compareTo(Interval o) {
 
+        //System.out.println("compareto opgeroepen?"); //ja
         int verschilOnder = this.lowInclusive - o.lowInclusive;
 
         if( verschilOnder == 0){

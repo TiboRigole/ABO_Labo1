@@ -1,4 +1,5 @@
 import java.sql.SQLOutput;
+import java.util.List;
 
 public class Node {
 
@@ -20,13 +21,44 @@ public class Node {
         this.vader = vader;
     }
 
+    public Node(Interval interval, Node vader, Node linkerZoon, Node rechterZoon){
+        this.interval = interval;
+        this.linkerZoon = linkerZoon;
+        this.rechterZoon = rechterZoon;
+        this.vader = vader;
+        //hier nog een maxWaarde aan toevoegen, door extra parameter van de lijst met intervallen
+        //uit die parameter de maximumwaarde van de intervallen halen
+    }
+
+    public Node(Interval interval, Node vader, Node linkerZoon, Node rechterZoon, List<Interval> alleZonen){
+        this.interval = interval;
+        this.linkerZoon = linkerZoon;
+        this.rechterZoon = rechterZoon;
+        this.vader = vader;
+
+        max = pakMax(alleZonen);
+    }
+
+    private int pakMax(List<Interval> alleZonen) {
+        int maximum = 0;
+        for(Interval zoon : alleZonen){
+            if (zoon.getHigh() > maximum){
+                maximum = zoon.getHigh();
+            }
+        }
+        return maximum;
+    }
+
+
     public void setLinks(Interval interval){ //nog niet zeker als dit wel gebruikt zal worden
         linkerZoon = new Node(interval, this);
     }
+    public void setLinks(Node links){ linkerZoon = links;}
 
     public void setRechts(Interval interval) {
         rechterZoon = new Node(interval, this);
     }
+    public void setRechts(Node rechts){ rechterZoon = rechts;}
 
     public Node getLinks(){
         return linkerZoon;
@@ -36,75 +68,9 @@ public class Node {
         return rechterZoon;
     }
 
-    public void setMax(){
-        //bereken het maximum
-        //geen idee hoe je dit doet
+    public void setMax(int high){
+        max = high;
     }
-
-    public void voegNodeToe(Interval toevoegen){
-
-
-        //bepalen als links of rechts moet
-        if(interval.getLow() > toevoegen.getLow() ){
-            //links toevoegen
-            if(linkerZoon == null){
-                linkerZoon = new Node(toevoegen, this);
-            }
-            else{
-                linkerZoon.voegNodeToe(toevoegen);
-            }
-
-        }
-        else if(interval.getLow() < toevoegen.getLow()){
-
-            if(rechterZoon == null){
-                rechterZoon = new Node(toevoegen, this);
-            }
-            else{
-                rechterZoon.voegNodeToe(toevoegen);
-            }
-
-        }
-        else{ //wanner de ondergrenzen gelijk zijn
-
-            if(interval.getHigh() > toevoegen.getHigh() ){
-                //links toevoegen
-                if(linkerZoon == null){
-                    linkerZoon = new Node(toevoegen, this);
-                }
-                else{
-                    linkerZoon.voegNodeToe(toevoegen);
-                }
-
-            }
-            else if(interval.getHigh() < toevoegen.getHigh() ){
-
-                if(rechterZoon == null){
-                    rechterZoon = new Node(toevoegen, this);
-                }
-                else{
-                    rechterZoon.voegNodeToe(toevoegen);
-                }
-
-            }
-            else{
-                //als er 2 identieke intervallen zijn???
-                System.out.println("identieke intervallen");
-                System.out.println("Node.java, lijn ongeveer 95");
-
-                //waarschijnlijk niets doen, niet toevoegen ? toch?
-
-            }
-
-
-
-
-
-
-        }
-
-    }
-
 
     public void LWRPrint() {    // LINKS, WAARDE, RECHTS
 
@@ -118,4 +84,8 @@ public class Node {
             rechterZoon.LWRPrint();
         }
     }
+
+
+
+
 }

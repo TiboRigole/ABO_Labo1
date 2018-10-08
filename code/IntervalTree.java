@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 public class IntervalTree {
@@ -14,11 +15,43 @@ public class IntervalTree {
      */
     public IntervalTree(List<Interval> intervals) {
 
-        root = new Node( intervals.get(0) /*eerste interval?*/ ,null);
+        //sorteer de lijst op klein naar groot
+        Collections.sort(intervals);
 
-        for(int i=1 ; i<intervals.size() ; i++){
-            root.voegNodeToe(intervals.get(i));
+        root = sorteerdeArrayNaarBalansBoom(intervals, null);
+    }
+
+    private Node sorteerdeArrayNaarBalansBoom(List<Interval> intervals, Node vader){
+
+        if(intervals.size() == 0 ){
+            return null;
         }
+
+        if(intervals.size() == 1 ){
+            Node eind = new Node(intervals.get(0), vader, null, null);
+            eind.setMax(intervals.get(0).getHigh());
+        }
+
+
+        int midden = intervals.size()/2;
+
+        //linker en rechterLijst maken
+        List<Interval> linkerLijst = intervals.subList(0, midden);
+        List<Interval> rechterLijst = intervals.subList(midden+1, intervals.size());
+
+        //recursief linker en rechterdeel invullen
+        Node opperNode = new Node(intervals.get(midden), vader, null, null, intervals);
+        Node linkerNode = sorteerdeArrayNaarBalansBoom(linkerLijst, opperNode);
+        Node rechterNode = sorteerdeArrayNaarBalansBoom(rechterLijst, opperNode );
+
+        opperNode.setLinks(linkerNode);
+        opperNode.setRechts(rechterNode);
+
+        return opperNode;
+
+
+
+
     }
 
 

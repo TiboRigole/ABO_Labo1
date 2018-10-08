@@ -12,14 +12,14 @@ public class Labo1IntervalTree {
         int nIntervals = 40;
         int maxRange = 100;
 
-        System.out.println("eigen debugging gebeurt hier");
+     /*   System.out.println("eigen debugging gebeurt hier");
 
         Interval test1 = new Interval(20,30);
         Interval test2 = new Interval(10,29);
 
         Interval test3 = test1.calculateOverlap(test2);
 
-        System.out.println("einde eigen debugging...");
+        System.out.println("einde eigen debugging...");*/
 
         System.out.println("Creating intervals:");
         List<Interval> intervals = new ArrayList<>(nIntervals);
