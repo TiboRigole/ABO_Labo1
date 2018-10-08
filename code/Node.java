@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class Node {
@@ -72,6 +71,15 @@ public class Node {
         max = high;
     }
 
+    private int getMax() {
+        return max;
+    }
+
+    private Interval getInterval() {
+        return interval;
+    }
+
+
     public void LWRPrint() {    // LINKS, WAARDE, RECHTS
 
         if(linkerZoon != null ){
@@ -85,7 +93,23 @@ public class Node {
         }
     }
 
+    public void zoekOverlappingMetGetalRecursief(int getal, List<Interval> returnLijst ) {
+        //logica voor linkerdeel
+        if(linkerZoon != null && getal <= linkerZoon.getMax() ) {
+            linkerZoon.zoekOverlappingMetGetalRecursief(getal, returnLijst);
+        }
 
+        //logica voor huidige
+        if(interval.getLow() <= getal && interval.getHigh() > getal){
+            returnLijst.add(this.getInterval());
+        }
+
+
+        //logica voor rechterdeel
+        if(rechterZoon != null && getal <= rechterZoon.getMax() ) {
+            rechterZoon.zoekOverlappingMetGetalRecursief(getal, returnLijst);
+        }
+    }
 
 
 }

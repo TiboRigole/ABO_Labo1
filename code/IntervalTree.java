@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -70,8 +71,20 @@ public class IntervalTree {
     /**
      * Opgave 3.3
      */
-    public List<Interval> findOverlapping(int x) {
-        throw new UnsupportedOperationException("Nog te implementeren!");
+    public List<Interval> findOverlapping(int getal) {
+        //LWR doorzoeken
+        //vroegtijdig stoppen als we geen kans meer maken om nog een waarde te vinden
+
+        //standaardprocedure voor als we een node hebben?
+        //node.contains(x)
+
+        //als getal > maxwaarde van die node --> niet meer verderzoeken
+        //A.K.A als getal <= maxWaarde van die node --> wel verderzoeken
+        List<Interval> legeLijst = new ArrayList<Interval>();
+
+        root.zoekOverlappingMetGetalRecursief(getal, legeLijst);
+
+        return legeLijst;
     }
 
     /**
