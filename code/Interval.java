@@ -65,4 +65,15 @@ public class Interval implements Comparable<Interval> {
     public String toString() {
         return String.format("[%d, %d)",getLow(),getHigh());
     }
+
+    public boolean overlaps(Interval second){
+        int maxOnder = Math.max(this.lowInclusive, second.lowInclusive);
+        int minBoven = Math.min(this.highExclusive, second.highExclusive);
+
+        return maxOnder <= minBoven;
+    }
+
+
+
+
 }

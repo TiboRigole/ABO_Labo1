@@ -38,9 +38,6 @@ public class Labo1IntervalTree {
         IntervalTree tree = new IntervalTree(intervals);
 
         // print the intervals
-        System.out.println();
-        System.out.println();
-        System.out.println("printing intervals");
         tree.printIntervals();
 
         // list all intervals overlapping i in range [0,maxRange]

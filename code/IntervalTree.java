@@ -92,6 +92,12 @@ public class IntervalTree {
      */
 
     public List<Interval> findOverlapping(Interval ab) {
-        throw new UnsupportedOperationException("Nog te implementeren!");
+        //LWR doorzoeken
+
+        List<Interval> legeLijst = new ArrayList<Interval>();
+
+        root.zoekOverlappingMetIntervalRecursief(ab, legeLijst);
+
+        return legeLijst;
     }
 }

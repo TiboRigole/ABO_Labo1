@@ -111,5 +111,29 @@ public class Node {
         }
     }
 
+    public void zoekOverlappingMetIntervalRecursief(Interval ab, List<Interval> returnLijst) {
+        //logica voor linkerdeel
+
+        //als interval.min >= node.maxiumonderliggen, dan niet meer verder zoeken
+        //aka : als interval.min < node.maximumonderliggend, dan verder zoeken
+
+        if(linkerZoon != null && ab.getLow() < linkerZoon.getMax()){ //voorwaarde wanneer we verder moeten zoeken
+            linkerZoon.zoekOverlappingMetIntervalRecursief(ab, returnLijst); //niet zeker als juist
+        }
+
+
+        //logica voor huidige
+        if(interval.overlaps(ab)){
+            returnLijst.add(this.getInterval());
+        }
+
+        //logica voor rechterdeel
+        if(rechterZoon != null && ab.getLow() < rechterZoon.getMax()){ //voorwaarde wanneer we verder moeten zoeken
+            rechterZoon.zoekOverlappingMetIntervalRecursief(ab,returnLijst);
+        }
+
+
+    }
+
 
 }
